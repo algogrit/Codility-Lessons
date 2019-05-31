@@ -30,3 +30,4 @@ binding.pry
 puts solution([3, 1, 2, 3, 4])
 puts solution([-1000, 1000])
 puts solution([1000, 1000])
+puts solution([-10, -10, 20])
