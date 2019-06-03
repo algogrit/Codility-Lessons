@@ -5,17 +5,21 @@ require 'pp'
 
 def solution(n, a)
   # write your code in Ruby 2.2
-  counters = Array.new(n, 0)
+  current_max = 0
+  counters = Hash.new(current_max)
 
   a.each do |elem|
     if elem <= n
       counters[elem - 1] += 1
     elsif elem == n + 1
-      counters = Array.new(n, counters.max)
+      current_max = counters.values.max || current_max
+      counters = Hash.new(current_max)
     end
   end
 
-  return counters
+  n.times.map do |i|
+    counters[i]
+  end
 end
 
 # binding.pry
