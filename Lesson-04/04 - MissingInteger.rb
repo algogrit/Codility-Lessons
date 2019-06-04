@@ -2,6 +2,9 @@
 
 require 'pry'
 require 'pp'
+require 'test/unit/assertions'
+
+include Test::Unit::Assertions
 
 def solution(a)
   # write your code in Ruby 2.2
@@ -25,6 +28,6 @@ def solution(a)
 end
 # binding.pry
 
-pp solution([1, 3, 6, 4, 1, 2]) # 5
-pp solution([1, 2, 3]) # 4
-pp solution([-1, -3]) # 1
+assert_equal(5, solution([1, 3, 6, 4, 1, 2]))
+assert_equal(4, solution([1, 2, 3]))
+assert_equal(1, solution([-1, -3]))
