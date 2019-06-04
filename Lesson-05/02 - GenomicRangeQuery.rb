@@ -6,20 +6,33 @@ require 'test/unit/assertions'
 
 include Test::Unit::Assertions
 
+IMPACT_FACTOR = {
+  "A" => 1,
+  "C" => 2,
+  "G" => 3,
+  "T" => 4
+}
+
 def solution(s, p, q)
+  n = s.length
   m = p.length
 
-  m.times.map do |index|
-    substring = s[p[index]..q[index]]
-    min = 4
-    if (substring.include?('A'))
-      min = 1
-    elsif (substring.include?('C'))
-      min = 2
-    elsif (substring.include?('G'))
-      min = 3
+  prefix_sums = {}
+
+  IMPACT_FACTOR.each do |letter, _|
+    prefix_sums[letter] = Array.new(n + 1, 0)
+    (1..n).each do |i|
+      adder = s[i - 1] == letter ? 1 : 0
+      prefix_sums[letter][i] = prefix_sums[letter][i - 1] + adder
     end
-    min
+  end
+
+  p.zip(q).map do |from, to|
+    IMPACT_FACTOR.map do |letter, impact|
+      if prefix_sums[letter][from] < prefix_sums[letter][to + 1]
+        impact
+      end
+    end.reject(&:nil?).min
   end
 end
 
