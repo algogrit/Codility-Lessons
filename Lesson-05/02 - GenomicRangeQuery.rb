@@ -6,20 +6,20 @@ require 'test/unit/assertions'
 
 include Test::Unit::Assertions
 
-IMPACT_FACTOR = {
-  "A" => 1,
-  "C" => 2,
-  "G" => 3,
-  "T" => 4
-}
-
 def solution(s, p, q)
-  impacts = s.split('').map {|letter| IMPACT_FACTOR[letter]}
-
   m = p.length
 
   m.times.map do |index|
-    impacts[p[index]..q[index]].min
+    substring = s[p[index]..q[index]]
+    min = 4
+    if (substring.include?('A'))
+      min = 1
+    elsif (substring.include?('C'))
+      min = 2
+    elsif (substring.include?('G'))
+      min = 3
+    end
+    min
   end
 end
 
