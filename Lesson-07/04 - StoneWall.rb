@@ -12,10 +12,10 @@ def solution(h)
   peaks = []
 
   h.each do |height|
-    while !peaks.empty? && peaks.last > height do
+    until peaks.empty? || height >= peaks.last do
       peaks.pop
     end
-    if !peaks.empty? && peaks.last == height
+    if !peaks.empty? && height == peaks.last
       next
     else
       stones += 1
