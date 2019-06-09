@@ -7,28 +7,34 @@ require 'test/unit/assertions'
 include Test::Unit::Assertions
 
 def solution(a)
-  min_avg = 1 / 0.0
-  min_index = 0
+  n = a.size
 
-  a.each_cons(2).each_with_index do |double, i|
-    avg = double.inject(:+) / 2.0
+  prefix_sum = [0] * (n + 1)
 
-    if avg < min_avg
-      min_index = i
-      min_avg = avg
-    end
+  (1..n).each do |i|
+    prefix_sum[i] = a[i - 1] + prefix_sum[i - 1]
   end
 
-  a.each_cons(3).each_with_index do |triple, i|
-    avg = triple.inject(:+) / 3.0
+  left_idx = min_left_idx = 0
+  avg_here = min_avg = ((a[0] + a[1]) / 2.0)
 
-    if avg < min_avg
-      min_index = i
-      min_avg = avg
+  (2..n-1).each do |i|
+    avg_with_prev = (prefix_sum[i + 1] - prefix_sum[left_idx]) / (i - left_idx + 1.0)
+    avg_of_two = (a[i - 1] + a[i]) / 2.0
+
+    if avg_of_two < avg_with_prev
+      avg_here = avg_of_two
+      left_idx = i - 1
+    else
+      avg_here = avg_with_prev
+    end
+
+    if avg_here < min_avg
+      min_avg = avg_here
+      min_left_idx = left_idx
     end
   end
-
-  min_index
+  min_left_idx
 end
 
 # binding.pry
