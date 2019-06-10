@@ -10,7 +10,6 @@ def solution(n)
   i = 1
   result = 0
   while i * i < n do
-    pp [i, n % i]
     if n % i == 0
       result += 2
     end
