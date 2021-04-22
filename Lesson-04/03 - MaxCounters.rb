@@ -5,15 +5,17 @@ require 'pp'
 
 def solution(n, a)
   # write your code in Ruby 2.2
-  current_max = 0
-  counters = Hash.new(current_max)
+  max_value = 0
+  counters = Hash.new(max_value)
 
   a.each do |elem|
     if elem <= n
       counters[elem - 1] += 1
+      if max_value < counters[elem - 1]
+        max_value = counters[elem - 1]
+      end
     elsif elem == n + 1
-      current_max = counters.values.max || current_max
-      counters = Hash.new(current_max)
+      counters = Hash.new(max_value)
     end
   end
 
