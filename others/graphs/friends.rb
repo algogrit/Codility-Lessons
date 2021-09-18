@@ -26,7 +26,10 @@ def number_of_friends(relations: , people:)
   end
 
   people.map do |person|
-    {person => get_friends(network, [person], person).count - 1}
+    inclusive_friends = get_friends(network, [person], person)
+    friends = inclusive_friends - [person]
+
+    {person => [friends.count, friends.join(", ")]}
   end
 end
 
