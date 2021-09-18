@@ -41,20 +41,7 @@ func numberOfFriends(relationships []string, people []string) map[string]int {
 
 		network[friends[0]] = append(network[friends[0]], friends[1])
 		network[friends[1]] = append(network[friends[1]], friends[0])
-
-		// for idx, friend := range friends {
-		// 	otherIdx := (idx + 1) % 2
-		// 	otherFriend := friends[otherIdx]
-
-		// 	listOfFriends := network[friend]
-
-		// 	if !contains(listOfFriends, otherFriend) {
-		// 		network[friend] = append(listOfFriends, otherFriend)
-		// 	}
-		// }
 	}
-
-	// fmt.Println(network)
 
 	for _, person := range people {
 		listOfFriends := networkOfFriends(network, person, []string{person})
